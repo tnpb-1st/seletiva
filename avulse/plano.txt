@@ -1,0 +1,6 @@
+1. Nomeando Variáveis
+2. Loops e Estruturas de Decisão
+3. Pegando inputs e jogando outputs
+4. Funções e Refências
+5. POO
+6. Ponteiros

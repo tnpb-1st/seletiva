@@ -1,0 +1,8 @@
+A - 2100
+B - UVA
+E - UVA
+F - UVA
+H - UVA
+I - ~1800
+J - SPOJ ~1800
+L - ~1600
