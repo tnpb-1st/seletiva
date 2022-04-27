@@ -15,14 +15,29 @@ typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
 const int inf = 1e9;
 const ll infl = 1e18;
-int dp[100001];
 /*
 SOLUTION BY tnpb
+n = 0, (1+1+1+1) mod 5 = 4
+n = 1, (1+2+3+4) mod 5 = 0
+n = 2, (1+4+4+1) mod 5 = 0
+n = 3, (1+3+2+4) mod 5 = 0
+n = 4, (1+1+1+1) mod 5 = 4
+n = 5, (1+2+3+4) mod 5 = 0
+n = 6, (1+4+4+1) mod 5 = 0
+n = 7, (1+3+2+4) mod 5 = 0
+n = 8, (1+1+1+1) mod 5 = 4
+:= n%4 = 4, else 0
 */
 
 void solve()
 {
-
+    string s;
+    cin>>s;
+    int x;
+    if(s.size() < 4) x = stoi(s);
+    else x = stoi(s.substr(s.size()-2));
+    if(x%4==0)cout<<4;
+    else cout << 0;
 }
 
 int main()

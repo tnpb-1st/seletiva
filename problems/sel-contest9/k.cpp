@@ -15,14 +15,36 @@ typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
 const int inf = 1e9;
 const ll infl = 1e18;
-int dp[100001];
 /*
 SOLUTION BY tnpb
 */
+ll dp[100] = {};
+
+const ll mod = infl;
+ll power(ll x, ll y)
+{
+	// 3^5 = 3^101
+	ll res = 1;
+	ll n = y;
+	while(n)
+	{
+		if(n & 1)
+			res = (res * x)%infl; //
+
+		n >>=1; //
+		x= (x*x)%infl; //
+	}
+	return res;
+}
 
 void solve()
 {
-
+    ll n,m;
+    cin>>n>>m;
+    //2^26 = 67108864
+    //2^27 = 134217728
+    if(n>27) cout<<m;
+    else cout << m % power(2, n);
 }
 
 int main()
