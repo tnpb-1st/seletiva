@@ -21,15 +21,20 @@ int dp[100001];
 SOLUTION BY tnpb
 */
 
+const int mod = 1e9 + 7;
+const int sz = 1e6 + 1;
+
 void solve()
 {
-
+	
 }
 
 int main()
 {
 	cin.tie(0);
 	ios::sync_with_stdio(0);
+	// freopen("1.in", "r", stdin);
+	// freopen("1.out", "w", stdout);
 	solve();
 	return 0;
 }

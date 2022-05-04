@@ -7,6 +7,9 @@
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [
+        "-std=c++17",
+        "-Wall",
+        "-O2",
         "<",
         "1.in"
       ],
@@ -34,7 +37,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": [],
+      "args": ["-std=c++17", "-Wall","-O2"],
       "stopAtEntry": false,
       "cwd": "/home/tnpb/Documents/Codes/CP_course/Algorithms/DP",
       "environment": [],

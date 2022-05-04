@@ -14,52 +14,43 @@ typedef vector<bool> vbool;
 typedef pair<int,int> pii;
 vector<ll> A;
 
-struct Node {
-	ll left, right, dist;
-	Node(ll l, ll r) {
-		left = l, right = r;
+ll calculateCowsForDist(int &c) {
+	int d = c, l = 1, r = A.size() - 1;
+	ll cow = 1;
+	for(int i = 2; i <= r; i++) {
+		if (abs(A[l] - A[i]) >= c) {
+			l = i;
+			cow++;
+		}
 	}
-	void calcDiff(ll* A) {
-		dist = abs(A[left] - A[right]);
-	}
-};
-struct mycomparison
-{
-	bool operator() (Node &a, Node &b) {
-			return a.dist < b.dist;
-	}
-};
-
+	return cow;
+}
 
 int main()
 {
 	cin.tie(0);
 	ios::sync_with_stdio(0);
-	int t, N, C;
+	int t, N, C, ans;
 	cin >> t;
 	while(t--) {
 		cin >> N >> C;
-		ll A[N];
-		for(int i = 0; i < N; i++) {
+		A.resize(N+1);
+		for(int i = 1; i <= N; i++) {
 			cin >> A[i];
 		}
-		sort(A, A+N);
-		pq<Node, vector<Node>, mycomparison> mypq;
-		Node tmp = Node(0, N-1);
-		C-=2;
-		tmp.calcDiff(A);
-		mypq.emplace(tmp);
-		ll ans = tmp.dist;
-		while(C > 0) {
-			tmp = mypq.top();mypq.pop();
-			ll mid = tmp.left + (tmp.right - tmp.left)/2;
-			Node op1(tmp.left, mid),op2(mid, tmp.right);
-			op1.calcDiff(A);op2.calcDiff(A);
-			ans = min(ans, min(op1.dist,op2.dist));
-			mypq.emplace(op1);mypq.emplace(op2);
-			C--;
+		
+		sort(all(A));
+		int l = 1, r = A[N] - A[1], mid;
+		while(l <= r) {
+			mid = l + (r-l)/2;
+			if(calculateCowsForDist(mid) >= C) {
+				ans = mid;
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
 		}
-		cout<<ans<<endl;
+		cout << ans << endl;
 	}
 
 	return 0;
