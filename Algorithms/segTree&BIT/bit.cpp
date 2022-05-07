@@ -20,21 +20,12 @@ int dp[100001];
 /*
 SOLUTION BY tnpb
 */
-template<class T>
-void printContainer(T &container) {
-	for(auto &ele:container) cout << ele << ' ';
-	cout<<'\n';
-}
 
-void solve()
-{
-
-}
 
 int main()
 {
-	cin.tie(0);
-	ios::sync_with_stdio(0);
-	solve();
-	return 0;
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    solve();
+    return 0;
 }

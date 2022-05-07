@@ -28,7 +28,7 @@ void printContainer(T &container) {
 
 void solve()
 {
-
+    
 }
 
 int main()

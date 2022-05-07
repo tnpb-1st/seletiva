@@ -28,7 +28,19 @@ void printContainer(T &container) {
 
 void solve()
 {
-
+    int n;cin>>n;
+    ll A[n];
+    for(int i = 0; i < n; i++) cin >> A[i];
+    sort(A, A + n);
+    bool is_possible = false;
+    for(int i = 1; i < n-1; i++) {
+        if(A[i-1] + A[i] > A[i+1]) {
+            is_possible = true;
+            break;
+        }
+    }
+    if(is_possible)cout<<"YES";
+    else cout << "NO";
 }
 
 int main()

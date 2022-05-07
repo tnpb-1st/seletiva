@@ -14,7 +14,7 @@ typedef pair<int,int> pii;
 typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
 const int inf = 1e9;
-const ll infl = 1e18;
+const ll infl = 1e10;
 const int arrLim = 1e6;
 int dp[100001];
 /*
@@ -28,7 +28,23 @@ void printContainer(T &container) {
 
 void solve()
 {
-
+    int n; cin >> n;
+    multiset<ll> l,r;
+    vector<pair<ll,ll>> points(n);
+    for(int i = 0; i < n; i++) {
+        cin >> points[i].first >> points[i].second;
+        l.insert(points[i].first);
+        r.insert(points[i].second);
+    }
+    ll ans = 0;
+    for(int i = 0; i < n; i++) {
+        l.erase(l.find(points[i].first));
+        r.erase(r.find(points[i].second));
+        ans = max(ans, *r.begin() - *l.rbegin());
+        l.insert(points[i].first);
+        r.insert(points[i].second);
+    }
+    cout << ans << endl;
 }
 
 int main()
