@@ -1,91 +1,78 @@
 #include <bits/stdc++.h>
+using namespace std;
 #define endl '\n'
 #define pb push_back
 #define all(x) x.begin(),x.end()
 #define pq priority_queue
-using namespace std;
 typedef long long ll;
-// typedef __int128_t bgl;
 typedef vector<int> vi;
 typedef vector<ll> vll;
+typedef vector<vi> vvi;
+typedef vector<vll> vvll;
+typedef vector<bool> vbool;
 typedef pair<int,int> pii;
-// range of int values -2*10^9 <= int <= 2*10^9 (32 bits)
-// range of long long values -2 * 10^18 <= ll <= 2 * 10^18 (64 bits)
-// g++ -std=c++14 -O2 -Wall test.cpp -o main
-bool checkM(pii &my_pair, vector<vi> &Matrix)
-{
-    int l = my_pair.first,c = my_pair.second;
-    if(Matrix[l][c] == 1)
-        return true;
-    return false;
+typedef vector<pii> vpii;
+typedef vector<vpii> vvpii;
+const int inf = 1e9;
+const ll infl = 1e18;
+const int arrLim = 1e6;
+int dp[100001];
+// N L O S NE SE SO NO
+int mov_y[] = {-1, 0, 1, 0, 1, -1, -1, 1}, mov_x[] = {0, 1, 0, -1, 1, 1, -1, -1};
+int chess_y[] = {-1,1,-2,2,-2,2,-1,1}, chess_x[] = {-2,-2,-1,-1,1,1,2,2};
+int N;
+
+vector<vector<bool>> board(10, vector<bool>(10, 0)), visited(10, vector<bool>(10, 0));
+int n_cells = 0;
+int best_ans = inf;
+/*
+SOLUTION BY tnpb
+*/
+template<class T>
+void printContainer(T &container) {
+	for(auto &ele:container) cout << ele << ' ';
+	cout<<'\n';
+}
+
+void fillBoard(int r, int i0, int len) {
+    for(int i = i0; i < i0 + len; i++){
+        board[r][i] = 1;
+        n_cells++;
+    }
+}
+
+bool check(int row, int col, int cur_ans = n_cells){
+    visited[row][col] = 1;
+    cur_ans--;
+    for(int i = 0; i < 8; i++) {
+        int r = row + chess_y[i], c = col + chess_x[i];
+        if(r >= 0 && r < 10 && c >= 0 && c < 10 && !visited[r][c] && board[r][c])
+            check(r,c, cur_ans);
+    }
+    visited[row][col] = 0;
+    best_ans = min(best_ans, cur_ans);
+    return true;
 }
 
 void solve()
 {
-    int A[] = {-2, -1, 1, 2};
-	string inp;
-    while(getline(cin, inp) && inp!="0")
-    {
-        vector<vi> Matrix(10), Pos(10);
-        stringstream SS(inp);
-        int sqrs = 0;
-        int n, b, off;
-        SS >> n;
+    int cas = 1;
+    int R;
+    while(cin >> R && R) {
+        n_cells = 0, best_ans = inf;
         for(int i = 0; i < 10; i++)
-        {
             for(int j = 0; j < 10; j++)
-            {
-                Matrix[i].pb(-1);
-                Pos[i].pb(-1);
-            }
+                board[i][j] = 0, visited[i][j] = 0;
+    
+        for(int i = 0; i < R; i++) {
+            int x, len; cin >> x >> len;
+            fillBoard(i, x, len);
         }
-        for(int i = 0; i < n; i++)
-        {
-            SS >> b >> off;
-            for(int col = b; col < b + off; col++){
-                Matrix[i][col] = 1;
-                Pos[i][col] = 0;
-                sqrs++;
-            }
-        }
-        auto tranverseBoard = [&](pii &my_pair, queue<pii> &my_q, int &res)
-        {
-            int l = my_pair.first, c=my_pair.second;
-            for(auto f1:A)
-            {
-                for(auto f2:A)
-                {
-                    if(abs(f1) + abs(f2) == 3)
-                    {
-                        if(l + f1 >= 0 && l +f1 < 10)
-                        {
-                            if(c + f2 >= 0 && c + f2 < 10)
-                            {
-                                if(Matrix[l + f1][f2 + c] == 1)
-                                {
-                                    if(Pos[l+f1][f2+c] == 0)
-                                    {
-                                        my_q.push({l + f1, c + f2});
-                                        Pos[l+f1][f2+c] = 1;
-                                        res++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
-        int res = 0;
-        queue<pii> Moves;
-        Moves.push({0, 0});
-        while(!Moves.empty())
-        {
-            pii my_pair = Moves.front();
-            Moves.pop();
-            tranverseBoard(my_pair, Moves, res);
-        }
-        cout << sqrs - res << endl;
+        check(0,0);
+        cout << "Case "<< cas <<", " << best_ans;
+        (best_ans != 1) ? cout <<  " squares" :  cout << " square"; 
+        cout<< " can not be reached.\n";
+        cas++;
     }
 }
 
@@ -93,9 +80,6 @@ int main()
 {
 	cin.tie(0);
 	ios::sync_with_stdio(0);
-	// freopen("1.in", "r", stdin);
-	// freopen("1.out", "w", stdout);
-
 	solve();
 	return 0;
 }

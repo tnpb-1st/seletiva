@@ -13,18 +13,15 @@ typedef vector<bool> vbool;
 typedef pair<int,int> pii;
 typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
-const int inf = 1e9;
-const ll infl = 1e18;
-const int arrLim = 1e6;
+const int INF = 0x3f3f3f3f;
+const ll INFLL = 8e18;
+const int mx = 1e6;
 int dp[100001];
-/*
-SOLUTION BY tnpb
-*/
-template<class T>
-void printContainer(T &container) {
-	for(auto &ele:container) cout << ele << ' ';
-	cout<<'\n';
-}
+char M[100][100];
+int R, C;
+// N L O S NE SE SO NO
+int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
+int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
 void solve()
 {
@@ -33,8 +30,7 @@ void solve()
 
 int main()
 {
-	cin.tie(0);
-	ios::sync_with_stdio(0);
-	solve();
-	return 0;
+    ios::sync_with_stdio(0);
+    solve();
+    return 0;
 }
