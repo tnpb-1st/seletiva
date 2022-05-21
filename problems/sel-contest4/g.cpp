@@ -8,111 +8,117 @@ typedef long long ll;
 typedef vector<int> vi;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
+typedef vector<vll> vvll;
 typedef vector<bool> vbool;
 typedef pair<int,int> pii;
+typedef vector<pii> vpii;
+typedef vector<vpii> vvpii;
+const int INF = 0x3f3f3f3f;
+const ll INFLL = 8e18;
+const int mx = 1e6;
+int dp[100001];
+vvpii parent;
+int dist[1001][1001], ans[1001][1001];
+char M[1001][1001];
+int R, C;
+// N L O S NE SE SO NO
+int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
+int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
-bitset<100001> visited;
-map<pii,int> indexes;
-int adj_pos(int &r, int &c, int &n) {return r*n + c;}
+class dsu2D{
+  vector<vector<int>> sz;
+  vector<vector<pii>> parent;
 
-void FillAdjMtx(vvi &matrix,vector<vector<pii>> &adj, set<pii> &checked,int r1, int c1,int r2, int c2, int &m, int &n) {
-    // fill adjcency matrix
-    if(r2 < 0 || c2 < 0 || r2 >= m || c2 >=n || matrix[r2][c2] == 0) return;
-    int v1 = indexes[{r1, c1}];
-    int v2 = indexes[{r2, c2}];
-    pii p1 = make_pair(v1,v2), p2 = make_pair(v2,v1);
-    if(checked.find(p1) == checked.end()) {
-        checked.insert(p1);
-        checked.insert(p2);
-        adj[v1].pb(make_pair(r2, c2));
-        adj[v2].pb(make_pair(r1,c1));
-    }
-}
-
-void floodFillAdjMtx(vvi& matrix,vector<vector<pii>> &adj,set<pii> &checked ,int r, int c, int &m, int &n) {
-    if(r < 0 || c < 0 || r >= m || c >=n) return;
-    vi mov_x = {-1,0,1,0}, mov_y = {0,1,0,-1}; // N,L,S,O
-    for(int i = 0; i < 4; i++) {
-        FillAdjMtx(matrix, adj, checked, r, c, r+mov_x[i],c+mov_y[i], m, n);
-    }
-}
-
-void FillPaints(vvi &matrix,int r1, int c1,int r2, int c2, int &m, int &n, int &node_paintings) {
-    if(r2 < 0 || c2 < 0 || r2 >= m || c2 >=n || matrix[r2][c2] == 1) return;
-    node_paintings++;
-}
-
-int floodFillPaints(vvi& matrix,int r, int c, int &m, int &n) {
-    if(r < 0 || c < 0 || r >= m || c >=n) return 0;
-    int node_paintings = 0;
-    vi mov_x = {-1,0,1,0}, mov_y = {0,1,0,-1}; // N,L,S,O
-    for(int i = 0; i < 4; i++) {
-        FillPaints(matrix, r, c, r+mov_x[i],c+mov_y[i], m, n, node_paintings);
-    }
-    return node_paintings;
-}
-
-void dfs(int &r0, int &c0,int &m, int &n ,vector<vector<pii>> &adj,vvi &mtx ,int &visited_paintings) {
-    visited_paintings += floodFillPaints(mtx, r0, c0, m, n);
-    pii pairr;
-    pairr = make_pair(r0,c0);
-    int posr = indexes[pairr];
-    visited[posr] = true;
-    for(pii &pairv: adj[posr]) {
-        if(!visited[indexes[pairv]]) {
-            dfs(pairv.first, pairv.second, m, n, adj, mtx, visited_paintings);
+  public:
+  dsu2D(int m, int n){
+    parent.assign(m+1, vector<pii>(n+1));
+    sz.assign(m+1, vector<int>(n+1));
+    for(int i = 1; i <= m; i++) {
+        for(int j = 1; j <= n; j++) {
+            parent[i][j] = {i,j};
+            sz[i][j] = 1;
         }
     }
+
+  }
+
+  pii find(int r, int c){
+    pii mpii = {r,c};
+    if(parent[r][c] != mpii) return find(parent[r][c].first,parent[r][c].second);
+    return parent[r][c];
+  }
+
+  void unite(int r1, int c1, int r2, int c2){
+    pii a, b;
+    a = find(r1,c1);
+    b = find(r2,c2);
+
+    int pr1, pc1, pr2, pc2; // parents of cell 1 and cell 2
+    pr1 = a.first, pc1 = a.second, pr2 = b.first, pc2 = b.second;
+    if(sz[pr1][pc1] < sz[pr2][pc2]){
+        swap(a,b);
+        swap(pr1,pr2);
+        swap(pc1,pc2);
+    } 
+    if(a != b) sz[pr1][pc1] += sz[pr2][pc2];
+    parent[pr2][pc2] = a;
+  }
+
+};
+
+void bfs(int r, int c, dsu2D &ufd) {
+    queue<pii> q;dist[r][c] = 0;q.push({r,c});
+    int _ans = 0;
+    // parent[r][c] = {r,c};
+    while(q.size()) {
+        pii ii = q.front(); q.pop();
+        int _r = ii.first, _c = ii.second;
+        for(int i = 0 ; i < 4; i++) {
+            int adjr = ii.first + dr[i], adjc = ii.second + dc[i];
+            if(adjr <= 0 || adjr > R) continue;
+            if(adjc <= 0 || adjc > C) continue;
+            if(M[adjr][adjc] == '*') {
+                _ans++;
+            }
+            else if(dist[adjr][adjc] == -1) {
+                dist[adjr][adjc] = dist[ii.first][ii.second] + 1;
+                ufd.unite(r, c, adjr, adjc);
+                // parent[adjr][adjc] = {r,c};
+                q.push({adjr,adjc});
+            } 
+        }
+    }
+    pii _p = ufd.find(r,c);
+    ans[_p.first][_p.second] = _ans;
 }
 
 void solve()
 {
-    int m, n, T;
-    cin >> m >> n >> T;
-    
-    vector<vector<pii>> G;
-    vvi mtx(m, vi(n));
-    int g_v = 0;
-    set<pii> edges;
-    for(int r = 0; r < m; r++) {
-        for(int c = 0; c < n; c++) {
-            char cell;
-            cin >> cell;
-            if(cell == '.') {
-                mtx[r][c] = 1;
-                G.pb({});
-                pii pos = make_pair(r,c);
-                indexes[pos] = g_v;
-                g_v++; 
-            }
-            else if(cell == '*')mtx[r][c] = 0;
+    int L;
+    cin >> R >> C >> L;
+    memset(dist, -1, sizeof(dist));
+    parent.assign(R, vpii(C, {-1,-1}));
+    dsu2D djs(R,C);
+
+    for(int i = 1; i <= R; i++) {
+        for(int j = 1; j <= C; j++) {
+            cin >> M[i][j];
         }
     }
-    for(int r = 0; r < m; r++) {
-        for(int c = 0; c < n; c++) {
-            if(mtx[r][c] == 1) {
-                floodFillAdjMtx(mtx, G, edges, r, c, m, n);
-            }
-        }
-    }
-    int r0, c0;
-    while(T--) {
-        cin >> r0 >> c0;
-        r0--;c0--;
-        int ans = 0;
-        visited.reset();
-        dfs(r0,c0,m,n, G, mtx, ans);
-        cout<<ans<<endl;
+    for(int i = 0; i < L; i++) {
+        int r, c; cin >> r >> c;
+        int _ans = 0;
+        if(dist[r][c] == -1)
+            bfs(r, c, djs);
+        pii _parent = djs.find(r,c);
+        _ans = ans[_parent.first][_parent.second];
+        cout << _ans << endl;
     }
 }
 
 int main()
 {
-	cin.tie(0);
-	ios::sync_with_stdio(0);
-	// freopen("1.in", "r", stdin);
-	// freopen("1.out", "w", stdout);
-
-	solve();
-	return 0;
+    ios::sync_with_stdio(0);
+    solve();
+    return 0;
 }

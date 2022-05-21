@@ -20,20 +20,15 @@ void solve()
 {
     int n;
     cin >> n;
-    vll dif(n+1);
-    ll clw, killer_diff, alive = 0, max_diff = INT_MAX;
-    for(ll i = 1; i <= n; i++) {
-        cin >> clw; killer_diff = i - clw;
-        dif[i] = killer_diff;      
+    ll A[n];
+    for(int i = 0; i < n; i++) cin >> A[i];
+    int ans = 0; ll w = n;
+    for(int i = n-1; i >= 0; i--) {
+        if(i < w)
+            ans++;
+        w = min(w, i - A[i]);
     }
-    
-    for(ll k = n; k >= 1; k--) {
-        if(k >= max_diff) {
-            alive++;
-        }
-        if(dif[k] < max_diff) max_diff = dif[k];
-    }
-    cout<<n - alive;
+    cout << ans;
 }
 
 int main()
