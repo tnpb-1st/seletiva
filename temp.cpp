@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+using namespace std::chrono;
 #define endl '\n'
 #define pb push_back
 #define all(x) x.begin(),x.end()
@@ -30,7 +31,14 @@ void solve()
 
 int main()
 {
+    cin.tie(0);
     ios::sync_with_stdio(0);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    auto start = high_resolution_clock::now();
     solve();
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+    // cout << duration.count() << " ms " << endl;
     return 0;
 }
