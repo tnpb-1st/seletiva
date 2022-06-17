@@ -16,15 +16,15 @@ typedef vector<vpii> vvpii;
 const int inf = 1e9;
 const ll infl = 1e18;
 
-const int MAX_FIB_N = 20;
-ll mem[MAX_FIB_N+1];
-vvi knapsackDP;
-
 template<class T>
 void printContainer(T &cont) {
     for(auto &x:cont)cout << x << ' ';
     cout<<endl;
 };
+const int MAX_FIB_N = 20;
+ll mem[MAX_FIB_N+1];
+vvi knapsackDP;
+
 
 int fib(int n) {
     if(n == 0 || n == 1) return n;

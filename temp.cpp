@@ -1,7 +1,11 @@
+/*
+author: eiji_tnpb
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
 #define pb push_back
+#define forn(x) for(int i = 1; i<=x; i++)
 #define all(x) x.begin(),x.end()
 #define pq priority_queue
 typedef long long ll;
@@ -30,7 +34,10 @@ void solve()
 
 int main()
 {
+    cin.tie(0);
     ios::sync_with_stdio(0);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     solve();
     return 0;
 }
