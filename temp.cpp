@@ -5,7 +5,8 @@ author: eiji_tnpb
 using namespace std;
 #define endl '\n'
 #define pb push_back
-#define forn(x) for(int i = 1; i<=x; i++)
+#define REP(idx,x) for(int i = idx; i<x; i++)
+#define REPN(idx,x) for(int i = idx; i<=x; i++)
 #define all(x) x.begin(),x.end()
 #define pq priority_queue
 typedef long long ll;
