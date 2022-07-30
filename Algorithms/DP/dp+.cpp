@@ -27,17 +27,7 @@ int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 //g++ -std=c++17 main.cpp -o main && time ./main
 //g++ -std=c++17 -Wall main.cpp -o main && time ./main
 
-void solve()
-{
-    cout << "Hello World" << endl;
-}
-
 int main()
 {
-    cin.tie(0);
-    ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    solve();
-    return 0;
+  
 }

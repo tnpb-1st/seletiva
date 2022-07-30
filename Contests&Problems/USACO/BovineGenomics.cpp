@@ -29,15 +29,31 @@ int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
 void solve()
 {
-    cout << "Hello World" << endl;
+  int N, M; cin >> N >> M;
+  char gens[2*N][M];
+  for(int i = 0; i < 2*N; i++){
+    for(int j = 0; j < M; j++) {
+      cin >> gens[i][j];
+    }
+  }
+  int ans = 0;
+  for(int j = 0; j < M; j++)
+  {
+    bool flag = true;
+    set<char> s1;
+    for(int i = 0; i < N; i++) s1.insert(gens[i][j]);
+    for(int i = N; i < 2*N; i++) if(s1.find(gens[i][j])!=s1.end()) flag = false;
+    if(flag) ans++;
+  }
+  cout << ans;
 }
 
 int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    freopen("cownomics.in", "r", stdin);
+    freopen("cownomics.out", "w", stdout);
     solve();
     return 0;
 }

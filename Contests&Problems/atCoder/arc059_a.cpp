@@ -1,3 +1,11 @@
+// Problem: C - Be Together
+// Contest: AtCoder - AtCoder Beginner Contest 043
+// URL: https://atcoder.jp/contests/abc043/tasks/arc059_a
+// Memory Limit: 256 MB
+// Time Limit: 2000 ms
+// 
+// Powered by CP Editor (https://cpeditor.org)
+
 /*
 author: eiji_tnpb
 */
@@ -21,15 +29,34 @@ typedef vector<vpii> vvpii;
 const int INF = 0x3f3f3f3f;
 const ll INFLL = 8e18;
 const int mx = 1e6;
+int dp[100001];
+char M[100][100];
+int R, C;
 // N L O S NE SE SO NO
 int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
-//g++ -std=c++17 main.cpp -o main && time ./main
-//g++ -std=c++17 -Wall main.cpp -o main && time ./main
 
 void solve()
 {
-    cout << "Hello World" << endl;
+	int N;
+	cin >> N;
+	vi A(N);
+	ll ans = INF, sum = 0;
+	REP(0, N)
+	{
+		cin >> A[i];
+	}
+	
+	REPN(-100, 100)
+	{
+		sum = 0;
+		for(int j = 0; (j < N) && (sum < ans); j++)
+		{
+			sum += ((ll) (A[j] - i) * (A[j] - i));	
+		}
+		ans = min(ans, sum);
+	}
+	cout << ans;
 }
 
 int main()

@@ -144,7 +144,7 @@ int main()
 	cin.tie(0);
 	ios::sync_with_stdio(0);
 	// freopen("1.in", "r", stdin);
-	// freopen("1.out", "w", stdout);
+	// freopen("1.out","w", stdout);
 
 	solve();
 	return 0;

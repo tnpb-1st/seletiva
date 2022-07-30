@@ -29,15 +29,40 @@ int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
 void solve()
 {
-    cout << "Hello World" << endl;
+    string s; cin >> s;
+    pii joker = {-1,-1};
+    vector<pii> A(26, joker);
+    for(int i = 0; i < s.size(); i++)
+    {
+      char c = s[i];
+      int idx = c - 'A';
+      if(A[idx] == joker) {
+        A[idx].first = i;
+      } else {
+        A[idx].second = i;
+      }
+    }
+
+    int ans = 0;
+
+    for(char c1 = 'A'; c1 <= 'Z'; c1++) {
+      int idx = c1 - 'A';
+      int st1 = A[idx].first, end1 = A[idx].second;
+      for(int i = end1+1; i < s.size(); i++) {
+        int idx2 = s[i] - 'A';
+        if(A[idx2].first > st1 && end1 > A[idx2].first && 
+        A[idx2].second > end1) ans++;
+      }
+    }
+    cout << ans;
 }
 
 int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    freopen("circlecross.in", "r", stdin);
+    freopen("circlecross.out", "w", stdout);
     solve();
     return 0;
 }

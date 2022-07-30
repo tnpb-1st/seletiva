@@ -5,8 +5,8 @@ author: eiji_tnpb
 using namespace std;
 #define endl '\n'
 #define pb push_back
-#define REP(idx,x) for(int i = idx; i<x; i++)
-#define REPN(idx,x) for(int i = idx; i<=x; i++)
+#define REP(itr,idx0,x) for(int itr = idx0; itr<x; itr++)
+#define REPN(itr,idx0,x) for(int itr = idx0; itr<=x; itr++)
 #define all(x) x.begin(),x.end()
 #define pq priority_queue
 typedef long long ll;
@@ -26,18 +26,31 @@ int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 //g++ -std=c++17 main.cpp -o main && time ./main
 //g++ -std=c++17 -Wall main.cpp -o main && time ./main
+string spotty[500], plain[500];
+int S[500][50], P[500][50], A[64];
 
 void solve()
 {
-    cout << "Hello World" << endl;
+    int N,M; cin >> N >> M;
+    string spotty[N], plain[N];
+    REP(i,0,N) {
+        cin >> spotty[i];
+        REP(j,0,M) {
+            if(spotty[i][j] == 'A') S[i][j] = 0;
+            if(spotty[i][j] == 'C') S[i][j] = 1;
+            if(spotty[i][j] == 'G') S[i][j] = 2;
+            if(spotty[i][j] == 'T') S[i][j] = 3; 
+        }
+    }
+    
 }
 
 int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    // freopen("cownomics.in", "r", stdin);
+    // freopen("cownomics.out", "w", stdout);
     solve();
     return 0;
 }

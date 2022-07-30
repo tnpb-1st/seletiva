@@ -1,3 +1,11 @@
+// Problem: C - Big Array
+// Contest: AtCoder - AtCoder Beginner Contest 061
+// URL: https://atcoder.jp/contests/abc061/tasks/abc061_c
+// Memory Limit: 256 MB
+// Time Limit: 2000 ms
+// 
+// Powered by CP Editor (https://cpeditor.org)
+
 /*
 author: eiji_tnpb
 */
@@ -5,8 +13,7 @@ author: eiji_tnpb
 using namespace std;
 #define endl '\n'
 #define pb push_back
-#define REP(idx,x) for(int i = idx; i<x; i++)
-#define REPN(idx,x) for(int i = idx; i<=x; i++)
+#define forn(idx,i,x) for(int i = idx; i<=x; i++)
 #define all(x) x.begin(),x.end()
 #define pq priority_queue
 typedef long long ll;
@@ -21,15 +28,34 @@ typedef vector<vpii> vvpii;
 const int INF = 0x3f3f3f3f;
 const ll INFLL = 8e18;
 const int mx = 1e6;
+int dp[100001];
+char M[100][100];
+int R, C;
 // N L O S NE SE SO NO
 int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
-//g++ -std=c++17 main.cpp -o main && time ./main
-//g++ -std=c++17 -Wall main.cpp -o main && time ./main
+const int MX = 1e5 + 1;
 
+ll cnt[MX];
 void solve()
 {
-    cout << "Hello World" << endl;
+	int N; 
+	ll K;
+	cin >> N >> K;
+	forn(1,i,N)
+	{
+		int a,b; cin >> a >> b;
+		cnt[a] += b;
+	}
+	forn(1,i,MX)
+	{
+		if(K <= cnt[i])
+		{
+			cout << i;
+			return;
+		}
+		K -= cnt[i];
+	}
 }
 
 int main()

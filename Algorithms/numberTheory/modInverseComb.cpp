@@ -21,15 +21,38 @@ typedef vector<vpii> vvpii;
 const int INF = 0x3f3f3f3f;
 const ll INFLL = 8e18;
 const int mx = 1e6;
+int dp[100001];
+char M[100][100];
+int R, C;
 // N L O S NE SE SO NO
 int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
-//g++ -std=c++17 main.cpp -o main && time ./main
-//g++ -std=c++17 -Wall main.cpp -o main && time ./main
+ll fact[501];
+
+ll fastExpo(ll a, ll b, ll MOD){
+	a  = (a % MOD + MOD) % MOD;
+	ll res = 1;
+	while(b) {
+		if(b&1)
+			res = res * a % MOD;
+		a = a *	a % MOD;
+		b >>=1;
+	}
+	return res;
+}
+
+ll invMod(ll a, ll MOD) {
+	return fastExpo(a, MOD-2, MOD);
+}
+
+ll nCk(ll n, ll r, ll MOD, bool rep=false) {
+	if(rep) n = n + r - 1;
+	return ((fact[n] * invMod(fact[r], MOD) % MOD) * invMod(fact[n-r], MOD)) % MOD;
+}
 
 void solve()
 {
-    cout << "Hello World" << endl;
+	
 }
 
 int main()
@@ -41,3 +64,4 @@ int main()
     solve();
     return 0;
 }
+

@@ -21,15 +21,50 @@ typedef vector<vpii> vvpii;
 const int INF = 0x3f3f3f3f;
 const ll INFLL = 8e18;
 const int mx = 1e6;
+int dp[100001];
+char M[100][100];
+int R, C;
 // N L O S NE SE SO NO
 int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
-//g++ -std=c++17 main.cpp -o main && time ./main
-//g++ -std=c++17 -Wall main.cpp -o main && time ./main
+// int N;
+vpii G;
+vector<char> cl;
+set<int> s1,s2;
 
 void solve()
 {
-    cout << "Hello World" << endl;
+  int T, N; cin >> T;
+  while(T--)
+  {
+    cin >> N;
+    G.clear();
+    s1.clear();
+    s2.clear();
+    cl.assign(N+1, 0);
+    bool is_possible = true;
+    for(int i = 0; i < N; i++)
+    {
+      int a,b;
+      cin >> a >> b;
+      cl[a]++;cl[b]++;
+      if((cl[a] > 2) || (cl[b] > 2)) 
+      {
+        is_possible = false;
+      }
+      if((a!=b) && !s1.count(a) && !s1.count(b)) {
+        s1.insert(a);s1.insert(b);
+      } else if((a!=b) && !s2.count(a) && !s2.count(b)) {
+        s2.insert(a);s2.insert(b);
+      } else{
+        is_possible = false;
+      }
+    }
+    if(is_possible)
+      cout << "YES"<<endl;
+    else
+      cout << "NO"<<endl;
+  }
 }
 
 int main()

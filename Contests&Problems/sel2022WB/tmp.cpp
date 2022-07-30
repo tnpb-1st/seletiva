@@ -21,23 +21,25 @@ typedef vector<vpii> vvpii;
 const int INF = 0x3f3f3f3f;
 const ll INFLL = 8e18;
 const int mx = 1e6;
+int dp[100001];
+char M[100][100];
+int R, C;
 // N L O S NE SE SO NO
 int dr[] = {-1, 0, 1, 0, 1, -1, -1, 1};
 int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
-//g++ -std=c++17 main.cpp -o main && time ./main
-//g++ -std=c++17 -Wall main.cpp -o main && time ./main
 
 void solve()
 {
-    cout << "Hello World" << endl;
+
 }
 
 int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    // freopen("1.in", "r", stdin);
+    // freopen("1.out", "w", stdout);
     solve();
     return 0;
 }
+

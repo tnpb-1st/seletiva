@@ -29,15 +29,40 @@ int dc[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
 void solve()
 {
-    cout << "Hello World" << endl;
+  int K, N;
+  cin >> K >> N;
+  vvi trains(N, vi(K));
+  for(int i = 0; i < K; i++)
+  {
+    for(int j = 1; j <= N; j++) {
+      int _cow; cin >> _cow;
+      trains[_cow-1][i] = j;
+    }
+  }
+
+  int consistentCows = 0;
+  for(int i = 0; i < N; i++) {
+    for(int j = 0 ; j < N; j++){
+      bool flag = true;
+      for(int t = 0; t < K; t++) {
+        if(trains[i][t] >= trains[j][t]){ 
+          flag = false;
+          break;
+        }
+      }
+      if (flag) consistentCows++;
+    }
+  }
+
+  cout << consistentCows;
 }
 
 int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    // freopen("gymnastics.in", "r", stdin);
+    // freopen("gymnastics.out", "w", stdout);
     solve();
     return 0;
 }
